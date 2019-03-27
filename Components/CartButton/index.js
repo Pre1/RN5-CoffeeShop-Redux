@@ -7,12 +7,13 @@ import { quantityCounter } from "../../Utilities/Counter";
 
 class CartButton extends Component {
   render() {
+    let route = this.props.user ? "CoffeeCart" : "Login";
     return (
       <Button transparent>
         <Text style={{ color: "white", fontSize: 25 }}>
           {this.props.quantity && this.props.quantity}
           <Icon
-            onPress={() => this.props.navigation.navigate("CoffeeCart")}
+            onPress={() => this.props.navigation.navigate(route)}
             name="shoppingcart"
             type="AntDesign"
           />
@@ -23,7 +24,8 @@ class CartButton extends Component {
 }
 
 const mapStateToProps = state => ({
-  quantity: quantityCounter(state.cartReducer.items)
+  quantity: quantityCounter(state.cartReducer.items),
+  user: state.authReducer.user
 });
 
 export default withNavigation(connect(mapStateToProps)(CartButton));
